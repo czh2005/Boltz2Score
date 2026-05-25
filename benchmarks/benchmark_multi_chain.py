@@ -1,10 +1,16 @@
-import time
 from pathlib import Path
+import sys
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+import time
 from boltz_server import Boltz2Server
 from boltzscore_paths import example_input, sample_dir, output_dir, prediction_cif, confidence_json, project_path
 
 def run_benchmark():
-    fasta_path = example_input("1CRN.fasta")
+    fasta_path = example_input("multi_chain.fasta")
     
     print("\nInitializing Boltz2Server (loading model)...")
     server = Boltz2Server()
@@ -14,7 +20,7 @@ def run_benchmark():
     full_start = time.time()
     server.predict(
         data_path=str(fasta_path),
-        out_dir=output_dir("benchmark_out_full_1"),
+        out_dir=output_dir("benchmark_out_full_multi"),
         score_only=False,
         use_msa_server=True # Enable MSA server
     )
@@ -24,10 +30,10 @@ def run_benchmark():
     # 2. Score Only for 1 sample
     print("\n--- Starting Score Only for 1 sample ---")
     score_start = time.time()
-    input_struct = prediction_cif("benchmark_out_full_1", "1CRN")
+    input_struct = prediction_cif("benchmark_out_full_multi", "multi_chain")
     server.predict(
         data_path=str(fasta_path),
-        out_dir=output_dir("benchmark_out_score_1"),
+        out_dir=output_dir("benchmark_out_score_multi"),
         score_only=True,
         input_structure=input_struct,
         use_msa_server=True

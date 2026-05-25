@@ -49,10 +49,10 @@ The **Boltz2Score pipeline** is designed for evaluating biomolecular structures 
 
 ### 1. Single Sample Benchmark
 
-`benchmark_1_sample.py` runs a full Boltz-2 prediction on `examples/inputs/1CRN.fasta`, then evaluates the generated structure in score-only mode.
+`benchmarks/benchmark_1_sample.py` runs a full Boltz-2 prediction on `examples/inputs/1CRN.fasta`, then evaluates the generated structure in score-only mode.
 
 ```bash
-python benchmark_1_sample.py
+python benchmarks/benchmark_1_sample.py
 ```
 
 Outputs are saved under:
@@ -64,10 +64,10 @@ outputs/results/benchmark_out_score_1/
 
 ### 2. Multi-chain Benchmark
 
-`benchmark_20_multi_chain_new.py` creates 20 copies of the multi-chain FASTA example, runs full prediction, then runs score-only evaluation on each generated structure.
+`benchmarks/benchmark_20_multi_chain_new.py` creates 20 copies of the multi-chain FASTA example, runs full prediction, then runs score-only evaluation on each generated structure.
 
 ```bash
-python benchmark_20_multi_chain_new.py
+python benchmarks/benchmark_20_multi_chain_new.py
 ```
 
 Generated FASTA files are saved under:
@@ -85,10 +85,10 @@ outputs/results/benchmark_out_score_multi_20_new/
 
 ### 3. Score-only Run
 
-If full prediction results already exist, `run_score_only.py` reruns only the score-only stage for the 20 multi-chain samples.
+If full prediction results already exist, `tools/run_score_only.py` reruns only the score-only stage for the 20 multi-chain samples.
 
 ```bash
-python run_score_only.py
+python tools/run_score_only.py
 ```
 
 This script expects structures from:
@@ -108,13 +108,13 @@ outputs/results/benchmark_out_score_multi_20_new/
 After running the multi-chain benchmark, compare iPTM values from full Boltz-2 prediction and Boltz2Score:
 
 ```bash
-python print_iptm.py
+python tools/print_iptm.py
 ```
 
 or:
 
 ```bash
-python extract_iptm.py
+python tools/extract_iptm.py
 ```
 
 ## Output Metrics
@@ -136,10 +136,8 @@ The primary benchmark scripts compare total runtime between full Boltz-2 predict
 Boltz2Score/
 |-- boltz_server.py              # Boltz2Server wrapper with score-only support
 |-- boltzscore_paths.py          # Shared project paths for examples, samples, and outputs
-|-- benchmark_*.py               # Full-prediction and score-only benchmark scripts
-|-- run_score_only.py            # Score-only runner for existing full-prediction outputs
-|-- print_iptm.py                # Metric comparison helper
-|-- extract_iptm.py              # Compact iPTM extraction helper
+|-- benchmarks/                  # Full-prediction and score-only benchmark scripts
+|-- tools/                       # Score-only runners and metric extraction helpers
 |-- examples/
 |   |-- inputs/                  # Boltz2Score FASTA examples
 |   `-- boltz/                   # Upstream Boltz examples

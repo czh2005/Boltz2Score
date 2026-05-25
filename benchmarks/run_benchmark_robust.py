@@ -1,8 +1,14 @@
+from pathlib import Path
+import sys
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 import time
 import json
 import subprocess
 import os
-from pathlib import Path
 from boltzscore_paths import output_dir, prediction_cif, project_path
 
 def run_robust_benchmark():
